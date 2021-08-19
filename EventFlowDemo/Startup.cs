@@ -43,7 +43,8 @@ namespace EventFlowDemo
                 //.AddEvents(typeof(ExampleEvent))
                 //.AddCommands(typeof(ExampleCommand))
                 //.AddCommandHandlers(typeof(ExampleCommandHandler))
-                .AddDefaults(Assembly.GetExecutingAssembly())
+                //.AddDefaults(Assembly.GetExecutingAssembly())
+                .RegisterModule<ExampleModule>()
                 .UseConsoleLog()
                 .UseFilesEventStore(FilesEventStoreConfiguration.Create("./evt-store"))
                 .UseInMemoryReadStoreFor<ExampleReadModel>();
