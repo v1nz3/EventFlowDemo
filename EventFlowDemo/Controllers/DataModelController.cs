@@ -1,9 +1,9 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using EventFlow.Configuration;
-using EventFlow.Extensions;
+﻿using EventFlow.Configuration;
 using EventFlow.ReadStores;
+using EventFlowDemo.Example;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EventFlowDemo.Controllers
 {
@@ -19,7 +19,7 @@ namespace EventFlowDemo.Controllers
         }
 
         [HttpPost]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(202)]
         public async Task<ActionResult> ReplayEvents()
         {
             await _readModelPopulator.PopulateAsync<ExampleReadModel>(CancellationToken.None);

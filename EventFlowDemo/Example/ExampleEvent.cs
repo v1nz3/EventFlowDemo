@@ -1,6 +1,6 @@
 ﻿using EventFlow.Aggregates;
 
-namespace EventFlowDemo
+namespace EventFlowDemo.Example
 {
     public class ExampleEvent : AggregateEvent<ExampleAggregate, ExampleId>
     {

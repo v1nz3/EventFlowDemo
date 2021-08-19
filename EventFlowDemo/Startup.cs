@@ -1,17 +1,16 @@
-﻿using System;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using EventFlow;
+using System.Reflection;
 using EventFlow.AspNetCore.Extensions;
-using EventFlow.AspNetCore.Middlewares;
-using EventFlow.Autofac.Extensions;
+using EventFlow.DependencyInjection.Extensions;
 using EventFlow.EventStores.Files;
 using EventFlow.Extensions;
+using EventFlowDemo.Example;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace EventFlowDemo
 {
@@ -25,42 +24,52 @@ namespace EventFlowDemo
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "EventFlowDemo", Version = "v1" });
+            });
 
-            var containerBuilder = new ContainerBuilder();
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-            var container = EventFlowOptions.New
-                .UseAutofacContainerBuilder(containerBuilder)
-                .AddAspNetCoreMetadataProviders()
-                .AddEvents(typeof(ExampleEvent))
-                .AddCommands(typeof(ExampleCommand))
-                .AddCommandHandlers(typeof(ExampleCommandHandler))
+            services.AddEventFlow(opt =>
+            {
+                opt.AddAspNetCore(cfg =>
+                {
+                    cfg.UseDefaults();
+                })
+                //.AddEvents(typeof(ExampleEvent))
+                //.AddCommands(typeof(ExampleCommand))
+                //.AddCommandHandlers(typeof(ExampleCommandHandler))
+                .AddDefaults(Assembly.GetExecutingAssembly())
                 .UseConsoleLog()
                 .UseFilesEventStore(FilesEventStoreConfiguration.Create("./evt-store"))
                 .UseInMemoryReadStoreFor<ExampleReadModel>();
-
-            containerBuilder.Populate(services);
-
-            return new AutofacServiceProvider(containerBuilder.Build());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "EventFlowDemo"));
             }
 
             app.UseHttpsRedirection();
-            app.UseMiddleware<CommandPublishMiddleware>();
-            app.UseMvc();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

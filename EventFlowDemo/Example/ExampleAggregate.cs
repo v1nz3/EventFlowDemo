@@ -1,7 +1,7 @@
 ﻿using EventFlow.Aggregates;
 using EventFlow.Aggregates.ExecutionResults;
 
-namespace EventFlowDemo
+namespace EventFlowDemo.Example
 {
     public class ExampleAggregate : AggregateRoot<ExampleAggregate, ExampleId>, IEmit<ExampleEvent>
     {

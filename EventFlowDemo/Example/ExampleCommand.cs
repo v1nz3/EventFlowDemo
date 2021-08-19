@@ -1,7 +1,7 @@
 ﻿using EventFlow.Aggregates.ExecutionResults;
 using EventFlow.Commands;
 
-namespace EventFlowDemo
+namespace EventFlowDemo.Example
 {
     public class ExampleCommand : Command<ExampleAggregate, ExampleId, IExecutionResult>
     {

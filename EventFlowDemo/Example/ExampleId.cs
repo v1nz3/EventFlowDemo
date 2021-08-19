@@ -1,6 +1,6 @@
 ﻿using EventFlow.Core;
 
-namespace EventFlowDemo
+namespace EventFlowDemo.Example
 {
     public class ExampleId : Identity<ExampleId>
     {
