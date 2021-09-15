@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventFlowDemo", "EventFlowDemo\EventFlowDemo.csproj", "{BCD31A5F-8D95-4A57-91D0-D0B3A845DAEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventFlowDemo", "EventFlowDemo\EventFlowDemo.csproj", "{BCD31A5F-8D95-4A57-91D0-D0B3A845DAEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{CAA67A10-DB96-4ABC-86A9-CADD78B725B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BCD31A5F-8D95-4A57-91D0-D0B3A845DAEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCD31A5F-8D95-4A57-91D0-D0B3A845DAEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCD31A5F-8D95-4A57-91D0-D0B3A845DAEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAA67A10-DB96-4ABC-86A9-CADD78B725B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAA67A10-DB96-4ABC-86A9-CADD78B725B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAA67A10-DB96-4ABC-86A9-CADD78B725B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAA67A10-DB96-4ABC-86A9-CADD78B725B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
